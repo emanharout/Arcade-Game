@@ -1,11 +1,13 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    this.locx = 'x';
+    this.locy = 'y';
 };
 
 // Update the enemy's position, required method for game
@@ -30,16 +32,18 @@ var Player = function () {
 Player.prototype.update = function() {
 };
 Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y)
 };
 Player.prototype.handleInput = function() {
 };
 
 
 // Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-var allEnemies = [];
-// Place the player object in a variable called player
+var enemy1 = new Enemy(10, 10);
 
+// Place all enemy objects in an array called allEnemies
+var allEnemies = [enemy1];
+// Place the player object in a variable called player
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
