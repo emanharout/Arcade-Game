@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function(x, y) {
+var Enemy = function (x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -36,18 +36,28 @@ Player.prototype.update = function() {
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-Player.prototype.handleInput = function() {
+Player.prototype.handleInput = function(direction) {
+    if (direction === 'left') {
+        this.x -= 101;
+    } else if (direction === 'right') {
+        this.x += 101;
+    } else if (direction === 'up') {
+        this.y -= 85;
+    } else if (direction == 'down') {
+        this.y += 85;
+    }
 };
 
 
 // Now instantiate your objects.
-var enemy1 = new Enemy();
-
+var enemy1 = new Enemy(100, 200);
+var enemy2 = new Enemy(120, 300);
+var enemy3 = new Enemy(220, 400);
 
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [enemy1];
 // Place the player object in a variable called player
-player = new Player(202, 303);
+player = new Player(202, 390);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
