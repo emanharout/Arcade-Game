@@ -55,9 +55,12 @@ var enemy2 = new Enemy(120, 300);
 var enemy3 = new Enemy(220, 400);
 
 // Place all enemy objects in an array called allEnemies
-var allEnemies = [enemy1];
+var allEnemies = [];
+allEnemies.push(enemy1);
+allEnemies.push(enemy2);
+allEnemies.push(enemy3);
 // Place the player object in a variable called player
-player = new Player(202, 390);
+var player = new Player(202, 390);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
