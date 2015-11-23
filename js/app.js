@@ -8,6 +8,12 @@ var Enemy = function (x, y, speed) {
     this.sprite = 'images/enemy-bug.png';
     this.x = x;
     this.y = y;
+    this.sides = {
+        leftSide: this.x,
+        rightSide: this.x + 101,
+        topSide: this.y + 77,
+        bottomSide: this.y + 144
+    };
     this.speed = speed;
 };
 
@@ -34,6 +40,8 @@ Enemy.prototype.reset = function() {
     }
 };
 
+
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -41,6 +49,12 @@ var Player = function (x, y) {
     this.sprite = 'images/char-boy.png';
     this.x = x;
     this.y = y;
+    this.sides = {
+        leftSide: x + 17,
+        rightSide: this.x + 84,
+        topSide: this.y + 80,
+        bottomSide: this.y + 140
+    };
 };
 Player.prototype.update = function() {
 };
@@ -62,6 +76,8 @@ Player.prototype.handleInput = function(direction) {
     }
 };
 
+
+
 var borders = {
     leftWall: 0,
     rightWall: 404,
@@ -75,8 +91,8 @@ var borders = {
 
 // Now instantiate your objects.
 var enemy1 = new Enemy(-101, 55, randomInt(150, 425));
-var enemy2 = new Enemy(120, 140, randomInt(150, 425));
-var enemy3 = new Enemy(220, 225, randomInt(150, 425));
+var enemy2 = new Enemy(-101, 140, randomInt(150, 425));
+var enemy3 = new Enemy(-101, 225, randomInt(150, 425));
 
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
