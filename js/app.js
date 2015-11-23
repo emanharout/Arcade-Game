@@ -8,12 +8,6 @@ var Enemy = function (x, y, speed) {
     this.sprite = 'images/enemy-bug.png';
     this.x = x;
     this.y = y;
-    this.sides = {
-        leftSide: this.x,
-        rightSide: this.x + 101,
-        topSide: this.y + 77,
-        bottomSide: this.y + 144
-    };
     this.speed = speed;
 };
 
@@ -44,7 +38,15 @@ Enemy.prototype.reset = function() {
 Enemy.prototype.leftSide = function() {
 	return this.x;
 };
-
+Enemy.prototype.rightSide = function() {
+	return this.x + 101;
+};
+Enemy.prototype.topSide = function() {
+	return this.y + 77;
+};
+Enemy.prototype.bottomSide = function() {
+	return this.y + 144;
+};
 
 
 // Now write your own player class
