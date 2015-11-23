@@ -82,7 +82,28 @@ Player.prototype.handleInput = function(direction) {
         this.y += 85;
     }
 };
+// The following prototype functions store enemy dimensions
+Player.prototype.leftSide = function() {
+	return this.x + 17;
+};
+Player.prototype.rightSide = function() {
+	return this.x + 84;
+};
+Player.prototype.topSide = function() {
+	return this.y + 80;
+};
+Player.prototype.bottomSide = function() {
+	return this.y + 140;
+};
 
+//Detect collision, returns boolean
+Player.prototype.collide = function () {
+	for (i = 0; i < allEnemies.length; i++) {
+		if (this.leftSide() < allEnemies[i].rightSide() && this.rightSide() > allEnemies[i].leftSide() && this.topSide() < allEnemies[i].bottomSide() && this.bottomSide() > allEnemies[i].topSide()) {
+			return true;
+		}
+	}
+};
 
 
 var borders = {
