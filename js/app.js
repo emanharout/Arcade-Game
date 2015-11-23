@@ -32,12 +32,17 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Reset enemy location
+// Reset enemy location upon reaching endpoint
 Enemy.prototype.reset = function() {
     if (this.x >= 500) {
         this.x = -101;
         this.speed = randomInt(150,425);
     }
+};
+
+// The following prototype functions store enemy dimensions
+Enemy.prototype.leftSide = function() {
+	return this.x;
 };
 
 
