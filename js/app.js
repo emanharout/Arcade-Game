@@ -48,16 +48,30 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 Player.prototype.handleInput = function(direction) {
-    if (direction === 'left') {
+    if (direction === 'left' && this.x !== borders.leftWall) {
         this.x -= 101;
-    } else if (direction === 'right') {
+    }
+    if (direction === 'right' && this.x !== borders.rightWall) {
         this.x += 101;
-    } else if (direction === 'up') {
+    }
+    if (direction === 'up') {
         this.y -= 85;
-    } else if (direction == 'down') {
+    }
+    if (direction == 'down' && this.y !== borders.bottomWall) {
         this.y += 85;
     }
 };
+
+var borders = {
+    leftWall: 0,
+    rightWall: 404,
+    bottomWall: 390,
+    topWall: 50
+};
+
+// TODO: If player.y = 50, and move up once more, reset
+// TODO: Collission:
+// If player occupies same space as enemy, reset game
 
 // Now instantiate your objects.
 var enemy1 = new Enemy(-101, 55, randomInt(150, 425));
