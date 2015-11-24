@@ -50,7 +50,7 @@ var Player = function (x, y) {
     this.x = x;
     this.y = y;
     this.sides = {
-        leftSide: x + 17,
+        leftSide: this.x + 17,
         rightSide: this.x + 84,
         topSide: this.y + 80,
         bottomSide: this.y + 140
