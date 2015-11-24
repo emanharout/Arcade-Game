@@ -64,9 +64,16 @@ var Player = function (x, y) {
     };
 };
 Player.prototype.update = function() {
+    if (this.collide) {
+        this.reset();
+    }
 };
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+Player.prototype.reset = function () {
+    this.x = 202;
+    this.y = 390;
 };
 Player.prototype.handleInput = function(direction) {
     if (direction === 'left' && this.x !== borders.leftWall) {
@@ -96,6 +103,7 @@ Player.prototype.bottomSide = function() {
 	return this.y + 140;
 };
 
+
 //Detect collision, returns boolean
 Player.prototype.collide = function () {
 	for (i = 0; i < allEnemies.length; i++) {
@@ -104,6 +112,8 @@ Player.prototype.collide = function () {
 		}
 	}
 };
+
+
 
 
 var borders = {
