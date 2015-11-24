@@ -1,3 +1,30 @@
+// Gems our player strives to collect
+var Gem = function (rowx, rowy, sprite) {
+    this.sprite = sprite;
+    this.x = rowx;
+    this.y = rowy;
+};
+
+Gem.prototype.update = function() {
+
+};
+
+Gem.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Gem.prototype.spawn = function() {
+
+};
+
+Gem.prototype.reset = function() {
+
+};
+
+Gem.prototype.collect = function() {
+
+};
+
 // Enemies our player must avoid
 var Enemy = function (x, y, speed) {
     // Variables applied to each of our instances go here,
@@ -66,10 +93,7 @@ Player.prototype.update = function() {
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-Player.prototype.reset = function () {
-    this.x = 202;
-    this.y = 390;
-};
+
 Player.prototype.handleInput = function(direction) {
     if (direction === 'left' && this.x !== borders.leftWall) {
         this.x -= 101;
@@ -111,6 +135,12 @@ Player.prototype.collide = function () {
 			return true;
 		}
 	}
+};
+
+// Reset player to start point
+Player.prototype.reset = function () {
+    this.x = 202;
+    this.y = 390;
 };
 
 var borders = {
