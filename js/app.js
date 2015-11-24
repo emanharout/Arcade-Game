@@ -35,19 +35,20 @@ Enemy.prototype.reset = function() {
 };
 
 // The following prototype functions store enemy dimensions
-Enemy.prototype.leftSide = function() {
-	return this.x;
+Enemy.prototype.sides = function(side) {
+    if (side === 'leftSide') {
+        return this.x;
+    }
+    if (side === 'rightSide') {
+        return this.x + 101;
+    }
+    if (side === 'topSide') {
+        return this.y + 77;
+    }
+    if (side === 'bottomSide') {
+        return this.y + 144;
+    }
 };
-Enemy.prototype.rightSide = function() {
-	return this.x + 101;
-};
-Enemy.prototype.topSide = function() {
-	return this.y + 77;
-};
-Enemy.prototype.bottomSide = function() {
-	return this.y + 144;
-};
-
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -86,25 +87,27 @@ Player.prototype.handleInput = function(direction) {
         this.y += 85;
     }
 };
-// The following prototype functions store enemy dimensions
-Player.prototype.leftSide = function() {
-	return this.x + 31;
-};
-Player.prototype.rightSide = function() {
-	return this.x + 84;
-};
-Player.prototype.topSide = function() {
-	return this.y + 80;
-};
-Player.prototype.bottomSide = function() {
-	return this.y + 140;
-};
 
+// The following prototype functions store enemy dimensions
+Player.prototype.sides = function(side) {
+    if (side === 'leftSide') {
+        return this.x + 31;
+    }
+    if (side === 'rightSide') {
+        return this.x + 84;
+    }
+    if (side === 'topSide') {
+        return this.y + 80;
+    }
+    if (side === 'bottomSide') {
+        return this.y + 140;
+    }
+};
 
 //Detect collision, returns boolean
 Player.prototype.collide = function () {
 	for (i = 0; i < allEnemies.length; i++) {
-		if (this.leftSide() < allEnemies[i].rightSide() && this.rightSide() > allEnemies[i].leftSide() && this.topSide() < allEnemies[i].bottomSide() && this.bottomSide() > allEnemies[i].topSide()) {
+		if (this.sides('leftSide') < allEnemies[i].sides('rightSide') && this.sides('rightSide') > allEnemies[i].sides('leftSide') && this.sides('topSide') < allEnemies[i].sides('bottomSide') && this.sides('bottomSide') > allEnemies[i].sides('topSide')) {
 			return true;
 		}
 	}
