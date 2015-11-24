@@ -76,8 +76,11 @@ Player.prototype.handleInput = function(direction) {
     if (direction === 'right' && this.x !== borders.rightWall) {
         this.x += 101;
     }
-    if (direction === 'up') {
+    if (direction === 'up' && this.y !== borders.topWall) {
         this.y -= 85;
+    } else if (direction === 'up' && this.y === 50) {
+        this.reset();
+        //TODO: getPoints function
     }
     if (direction == 'down' && this.y !== borders.bottomWall) {
         this.y += 85;
@@ -106,9 +109,6 @@ Player.prototype.collide = function () {
 		}
 	}
 };
-
-
-
 
 var borders = {
     leftWall: 0,
