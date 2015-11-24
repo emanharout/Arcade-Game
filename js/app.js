@@ -56,15 +56,9 @@ var Player = function (x, y) {
     this.sprite = 'images/char-boy.png';
     this.x = x;
     this.y = y;
-    this.sides = {
-        leftSide: this.x + 17,
-        rightSide: this.x + 84,
-        topSide: this.y + 80,
-        bottomSide: this.y + 140
-    };
 };
 Player.prototype.update = function() {
-    if (this.collide) {
+    if (this.collide()) {
         this.reset();
     }
 };
@@ -91,7 +85,7 @@ Player.prototype.handleInput = function(direction) {
 };
 // The following prototype functions store enemy dimensions
 Player.prototype.leftSide = function() {
-	return this.x + 17;
+	return this.x + 31;
 };
 Player.prototype.rightSide = function() {
 	return this.x + 84;
