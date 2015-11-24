@@ -8,12 +8,6 @@ var Enemy = function (x, y, speed) {
     this.sprite = 'images/enemy-bug.png';
     this.x = x;
     this.y = y;
-    this.sides = {
-        leftSide: this.x,
-        rightSide: this.x + 101,
-        topSide: this.y + 77,
-        bottomSide: this.y + 144
-    };
     this.speed = speed;
 };
 
@@ -32,7 +26,7 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Reset enemy location
+// Reset enemy location upon reaching endpoint
 Enemy.prototype.reset = function() {
     if (this.x >= 500) {
         this.x = -101;
@@ -40,6 +34,19 @@ Enemy.prototype.reset = function() {
     }
 };
 
+// The following prototype functions store enemy dimensions
+Enemy.prototype.leftSide = function() {
+	return this.x;
+};
+Enemy.prototype.rightSide = function() {
+	return this.x + 101;
+};
+Enemy.prototype.topSide = function() {
+	return this.y + 77;
+};
+Enemy.prototype.bottomSide = function() {
+	return this.y + 144;
+};
 
 
 // Now write your own player class
@@ -75,7 +82,28 @@ Player.prototype.handleInput = function(direction) {
         this.y += 85;
     }
 };
+// The following prototype functions store enemy dimensions
+Player.prototype.leftSide = function() {
+	return this.x + 17;
+};
+Player.prototype.rightSide = function() {
+	return this.x + 84;
+};
+Player.prototype.topSide = function() {
+	return this.y + 80;
+};
+Player.prototype.bottomSide = function() {
+	return this.y + 140;
+};
 
+//Detect collision, returns boolean
+Player.prototype.collide = function () {
+	for (i = 0; i < allEnemies.length; i++) {
+		if (this.leftSide() < allEnemies[i].rightSide() && this.rightSide() > allEnemies[i].leftSide() && this.topSide() < allEnemies[i].bottomSide() && this.bottomSide() > allEnemies[i].topSide()) {
+			return true;
+		}
+	}
+};
 
 
 var borders = {
