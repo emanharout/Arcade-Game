@@ -25,6 +25,8 @@ Gem.prototype.collect = function() {
 
 };
 
+var blueGem = new Gem(101 * randomInt(0, 4), 390, 'images/Gem-Blue.png');
+
 // Enemies our player must avoid
 var Enemy = function (x, y, speed) {
     // Variables applied to each of our instances go here,
@@ -169,7 +171,7 @@ var player = new Player(202, 390);
 
 //Make random number
 function randomInt (min, max) {
-    return Math.floor(Math.random() * max) + min;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 // This listens for key presses and sends the keys to your
