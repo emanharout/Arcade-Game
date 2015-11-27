@@ -10,20 +10,20 @@ Gem.prototype.update = function() {
     this.collect();
 };
 
+// Draws various gem sprites
 Gem.prototype.render = function() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 // Causes gems to reappear on map after a set time
 Gem.prototype.spawn = function() {
-    // self stores this's gem reference since selfTimeout
+    // self stores 'this' reference to gem objects since selfTimeout
     // causes 'this' to refer to window object
     var self = this;
-    //setTimeout(self.setLocation, 3000);
     setTimeout(function() {self.setLocation();}, randomInt(2500, 7500));
 };
 
-// TODO: setup so y location is random
+// Positions gems randomly within rows/columns
 Gem.prototype.setLocation = function() {
     this.x = 101 * randomInt(0, 4);
     this.y = 50 + (randomInt(0, 4) * 85);
@@ -35,21 +35,22 @@ Gem.prototype.reset = function() {
     this.y = -100;
 };
 
-// When player collects gem, the collission is detected, gem is
+// When player collects gem, the collision is detected, gem is
 // removed from map temporarily, respawned, and score is increased.
 Gem.prototype.collect = function() {
+    // Detects collision between Gems and player
     if (this.sides('leftSide') < player.sides('rightSide') && this.sides('rightSide') > player.sides('leftSide') && this.sides('topSide') < player.sides('bottomSide') && this.sides('bottomSide') > player.sides('topSide')) {
-        console.log("gem collission");
         this.reset();
         this.spawn();
-        // Increase score
+        // Increase score of Player(s) in a scalable way should multiplayer functionality
+        // be added in the future
         for (i = 0; i < allPlayers.length; i++) {
             allPlayers[i].score = allPlayers[i].score + 2;
         }
     }
 };
 
-//Returns gem dimensions for each side
+//Returns border dimensions for each side of gem
 Gem.prototype.sides = function(side) {
     if (side === 'leftSide') {
         return this.x;
@@ -65,7 +66,7 @@ Gem.prototype.sides = function(side) {
     }
 };
 
-// Create instances of each gem
+// Create instances of each gem and store into an array
 var blueGem = new Gem(101 * randomInt(0, 4), 50 + (randomInt(0, 4) * 85), 'images/Gem-Blue.png');
 var greenGem = new Gem(101 * randomInt(0, 4), 50 + (randomInt(0, 4) * 85), 'images/Gem-Green.png');
 var orangeGem = new Gem(101 * randomInt(0, 4), 50 + (randomInt(0, 4) * 85), 'images/Gem-Orange.png');
