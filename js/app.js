@@ -1,19 +1,17 @@
-// Gems our player strives to collect
+// Gem class - our player strives to collect instances of these
 var Gem = function (rowx, rowy, sprite) {
     this.sprite = sprite;
     this.x = rowx;
     this.y = rowy;
-    this.activate = true;
 };
 
+// Constantly checks if player collects gems by colliding with them
 Gem.prototype.update = function() {
     this.collect();
 };
 
 Gem.prototype.render = function() {
-    if (this.activate === true) {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    }
 };
 
 // Causes gems to reappear on map after a set time
@@ -21,8 +19,8 @@ Gem.prototype.spawn = function() {
     // self stores this's gem reference since selfTimeout
     // causes 'this' to refer to window object
     var self = this;
-    setTimeout(self.setLocation(), 9000);
-    //setTimeout(function() {setLocation();}, 2000);
+    //setTimeout(self.setLocation, 3000);
+    setTimeout(function() {self.setLocation();}, randomInt(2500, 7500));
 };
 
 // TODO: setup so y location is random
@@ -89,13 +87,13 @@ var allGems = [blueGem, greenGem, orangeGem];
 
 
 // Enemies our player must avoid
-var Enemy = function (x, y, speed) {
+var Enemy = function (x, y, speed, sprite) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
+    this.sprite = sprite;
     this.x = x;
     this.y = y;
     this.speed = speed;
@@ -120,7 +118,7 @@ Enemy.prototype.render = function() {
 Enemy.prototype.reset = function() {
     if (this.x >= 500) {
         this.x = -101;
-        this.speed = randomInt(150,425);
+        this.speed = randomInt(250, 450);
     }
 };
 
@@ -230,7 +228,7 @@ Player.prototype.collide = function () {
 	}
 };
 
-// Reset player to start point
+// Reset player to start points
 Player.prototype.reset = function () {
     this.x = 202;
     this.y = 390;
@@ -244,9 +242,9 @@ var borders = {
 };
 
 // Now instantiate your objects.
-var enemy1 = new Enemy(-101, 55, randomInt(150, 425));
-var enemy2 = new Enemy(-101, 140, randomInt(150, 425));
-var enemy3 = new Enemy(-101, 225, randomInt(150, 425));
+var enemy1 = new Enemy(-101, 55, randomInt(250, 450),'images/mutant-enemy-bug.png');
+var enemy2 = new Enemy(-101, 140, randomInt(250, 450), 'images/enemy-bug.png');
+var enemy3 = new Enemy(-101, 225, randomInt(250, 450), 'images/mutant-enemy-bug.png');
 
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
