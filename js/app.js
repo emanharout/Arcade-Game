@@ -18,15 +18,17 @@ Gem.prototype.render = function() {
 
 // Causes gems to reappear on map after a set time
 Gem.prototype.spawn = function() {
+    // self stores this's gem reference since selfTimeout
+    // causes 'this' to refer to window object
     var self = this;
-    setTimeout(self.setLocation(), 1000);
+    setTimeout(self.setLocation(), 9000);
     //setTimeout(function() {setLocation();}, 2000);
 };
 
 // TODO: setup so y location is random
 Gem.prototype.setLocation = function() {
     this.x = 101 * randomInt(0, 4);
-    this.y = 250;
+    this.y = 50 + (randomInt(0, 4) * 85);
 };
 
 // Remove gem off canvas
@@ -65,6 +67,7 @@ Gem.prototype.sides = function(side) {
     }
 };
 
+// Create instances of each gem
 var blueGem = new Gem(101 * randomInt(0, 4), 50 + (randomInt(0, 4) * 85), 'images/Gem-Blue.png');
 var greenGem = new Gem(101 * randomInt(0, 4), 50 + (randomInt(0, 4) * 85), 'images/Gem-Green.png');
 var orangeGem = new Gem(101 * randomInt(0, 4), 50 + (randomInt(0, 4) * 85), 'images/Gem-Orange.png');
