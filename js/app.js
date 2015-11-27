@@ -3,29 +3,87 @@ var Gem = function (rowx, rowy, sprite) {
     this.sprite = sprite;
     this.x = rowx;
     this.y = rowy;
+    this.activate = true;
 };
 
 Gem.prototype.update = function() {
-
+    this.collect();
 };
 
 Gem.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    if (this.activate === true) {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
 };
 
+// Causes gems to reappear on map after a set time
 Gem.prototype.spawn = function() {
-
+    var self = this;
+    setTimeout(self.setLocation(), 1000);
+    //setTimeout(function() {setLocation();}, 2000);
 };
 
+// TODO: setup so y location is random
+Gem.prototype.setLocation = function() {
+    this.x = 101 * randomInt(0, 4);
+    this.y = 250;
+};
+
+// Remove gem off canvas
 Gem.prototype.reset = function() {
-
+    this.x = -100;
+    this.y = -100;
 };
 
+// When player collects gem, the collission is detected, gem is
+// removed from map temporarily, respawned, and score is increased.
 Gem.prototype.collect = function() {
-
+    if (this.sides('leftSide') < player.sides('rightSide') && this.sides('rightSide') > player.sides('leftSide') && this.sides('topSide') < player.sides('bottomSide') && this.sides('bottomSide') > player.sides('topSide')) {
+        console.log("gem collission");
+        this.reset();
+        this.spawn();
+        // Increase score
+        for (i = 0; i < allPlayers.length; i++) {
+            allPlayers[i].score = allPlayers[i].score + 2;
+        }
+    }
 };
 
-var blueGem = new Gem(101 * randomInt(0, 4), 390, 'images/Gem-Blue.png');
+//Returns gem dimensions for each side
+Gem.prototype.sides = function(side) {
+    if (side === 'leftSide') {
+        return this.x;
+    }
+    if (side === 'rightSide') {
+        return this.x + 101;
+    }
+    if (side === 'topSide') {
+        return this.y + 58;
+    }
+    if (side === 'bottomSide') {
+        return this.y + 165;
+    }
+};
+
+var blueGem = new Gem(101 * randomInt(0, 4), 50 + (randomInt(0, 4) * 85), 'images/Gem-Blue.png');
+var greenGem = new Gem(101 * randomInt(0, 4), 50 + (randomInt(0, 4) * 85), 'images/Gem-Green.png');
+var orangeGem = new Gem(101 * randomInt(0, 4), 50 + (randomInt(0, 4) * 85), 'images/Gem-Orange.png');
+var allGems = [blueGem, greenGem, orangeGem];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Enemies our player must avoid
 var Enemy = function (x, y, speed) {
@@ -79,6 +137,28 @@ Enemy.prototype.sides = function(side) {
     }
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -86,14 +166,22 @@ var Player = function (x, y) {
     this.sprite = 'images/char-boy.png';
     this.x = x;
     this.y = y;
+    this.score = 0;
 };
+
+// Upon collision: player position is reset, score deducted
 Player.prototype.update = function() {
     if (this.collide()) {
         this.reset();
+        if (this.score >= 1){
+            this.score = this.score - 1;
+        }
     }
 };
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.font = "Bold 24px Helvetica";
+    ctx.fillText("Score: " + this.score, 382, 35);
 };
 
 Player.prototype.handleInput = function(direction) {
@@ -107,14 +195,14 @@ Player.prototype.handleInput = function(direction) {
         this.y -= 85;
     } else if (direction === 'up' && this.y === 50) {
         this.reset();
-        //TODO: getPoints function
+        this.score++;
     }
     if (direction == 'down' && this.y !== borders.bottomWall) {
         this.y += 85;
     }
 };
 
-// The following prototype functions store enemy dimensions
+// The following prototype functions store player dimensions
 Player.prototype.sides = function(side) {
     if (side === 'leftSide') {
         return this.x + 31;
@@ -130,11 +218,11 @@ Player.prototype.sides = function(side) {
     }
 };
 
-//Detect collision, returns boolean
+//Detect collision, returns boolean value
 Player.prototype.collide = function () {
 	for (i = 0; i < allEnemies.length; i++) {
 		if (this.sides('leftSide') < allEnemies[i].sides('rightSide') && this.sides('rightSide') > allEnemies[i].sides('leftSide') && this.sides('topSide') < allEnemies[i].sides('bottomSide') && this.sides('bottomSide') > allEnemies[i].sides('topSide')) {
-			return true;
+            return true;
 		}
 	}
 };
@@ -152,10 +240,6 @@ var borders = {
     topWall: 50
 };
 
-// TODO: If player.y = 50, and move up once more, reset
-// TODO: Collission:
-// If player occupies same space as enemy, reset game
-
 // Now instantiate your objects.
 var enemy1 = new Enemy(-101, 55, randomInt(150, 425));
 var enemy2 = new Enemy(-101, 140, randomInt(150, 425));
@@ -168,6 +252,8 @@ allEnemies.push(enemy2);
 allEnemies.push(enemy3);
 // Place the player object in a variable called player
 var player = new Player(202, 390);
+var allPlayers = [];
+allPlayers.push(player);
 
 //Make random number
 function randomInt (min, max) {
