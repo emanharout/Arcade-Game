@@ -1,6 +1,15 @@
-frontend-nanodegree-arcade-game
-===============================
+# Frogger Game
 
-Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015/l-3072058665/m-3072588797
+A Udacity Front End Developer project.
 
-for self-checking their submission.
+## Installation
+
+Simply clone the repository and run index.html in a browser of your choice.
+
+## How to Play
+
+* The goal is to help the player reach the water without coming in contact with enemy bugs.
+* Player is controlled with keyboard arrow keys.
+* Reaching the water scores you a point.
+* Colliding with an enemy loses you a point and resets the player's position.
+* Collecting a gem grants 2 points.
