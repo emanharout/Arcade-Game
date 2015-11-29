@@ -72,21 +72,6 @@ var greenGem = new Gem(101 * randomInt(0, 4), 50 + (randomInt(0, 4) * 85), 'imag
 var orangeGem = new Gem(101 * randomInt(0, 4), 50 + (randomInt(0, 4) * 85), 'images/Gem-Orange.png');
 var allGems = [blueGem, greenGem, orangeGem];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Enemies our player must avoid
 var Enemy = function (x, y, speed, sprite) {
     // Variables applied to each of our instances go here,
@@ -139,28 +124,6 @@ Enemy.prototype.sides = function(side) {
     }
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -180,12 +143,16 @@ Player.prototype.update = function() {
         }
     }
 };
+
+// Renders player, adds player score to top right corner of canvas
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     ctx.font = "Bold 24px Helvetica";
     ctx.fillText("Score: " + this.score, 382, 35);
 };
 
+// Enables player movement based on key input
+// Prevents moving off the map
 Player.prototype.handleInput = function(direction) {
     if (direction === 'left' && this.x !== borders.leftWall) {
         this.x -= 101;
@@ -195,6 +162,7 @@ Player.prototype.handleInput = function(direction) {
     }
     if (direction === 'up' && this.y !== borders.topWall) {
         this.y -= 85;
+    // Increase score and resets position upon reaching water
     } else if (direction === 'up' && this.y === 50) {
         this.reset();
         this.score++;
@@ -202,6 +170,14 @@ Player.prototype.handleInput = function(direction) {
     if (direction == 'down' && this.y !== borders.bottomWall) {
         this.y += 85;
     }
+};
+
+// Contains canvas borders
+var borders = {
+    leftWall: 0,
+    rightWall: 404,
+    bottomWall: 390,
+    topWall: 50
 };
 
 // The following prototype functions store player dimensions
@@ -220,7 +196,7 @@ Player.prototype.sides = function(side) {
     }
 };
 
-//Detect collision, returns boolean value
+// Detects collision, returns boolean value
 Player.prototype.collide = function () {
 	for (i = 0; i < allEnemies.length; i++) {
 		if (this.sides('leftSide') < allEnemies[i].sides('rightSide') && this.sides('rightSide') > allEnemies[i].sides('leftSide') && this.sides('topSide') < allEnemies[i].sides('bottomSide') && this.sides('bottomSide') > allEnemies[i].sides('topSide')) {
@@ -233,13 +209,6 @@ Player.prototype.collide = function () {
 Player.prototype.reset = function () {
     this.x = 202;
     this.y = 390;
-};
-
-var borders = {
-    leftWall: 0,
-    rightWall: 404,
-    bottomWall: 390,
-    topWall: 50
 };
 
 // Now instantiate your objects.
