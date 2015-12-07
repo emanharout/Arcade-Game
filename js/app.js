@@ -39,7 +39,10 @@ Gem.prototype.reset = function() {
 // removed from map temporarily, respawned, and score is increased.
 Gem.prototype.collect = function() {
     // Detects collision between Gems and player
-    if (this.sides('leftSide') < player.sides('rightSide') && this.sides('rightSide') > player.sides('leftSide') && this.sides('topSide') < player.sides('bottomSide') && this.sides('bottomSide') > player.sides('topSide')) {
+    if (this.sides('leftSide') < player.sides('rightSide') &&
+    	this.sides('rightSide') > player.sides('leftSide') &&
+    	this.sides('topSide') < player.sides('bottomSide') &&
+    	this.sides('bottomSide') > player.sides('topSide')) {
         this.reset();
         this.spawn();
         // Increase score of Player(s) in a scalable way should multiplayer functionality
@@ -91,7 +94,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x = this.x += this.speed * dt;
+    this.x += this.speed * dt;
     this.reset();
 };
 
@@ -199,7 +202,10 @@ Player.prototype.sides = function(side) {
 // Detects collision, returns boolean value
 Player.prototype.collide = function () {
 	for (i = 0; i < allEnemies.length; i++) {
-		if (this.sides('leftSide') < allEnemies[i].sides('rightSide') && this.sides('rightSide') > allEnemies[i].sides('leftSide') && this.sides('topSide') < allEnemies[i].sides('bottomSide') && this.sides('bottomSide') > allEnemies[i].sides('topSide')) {
+		if (this.sides('leftSide') < allEnemies[i].sides('rightSide') &&
+			this.sides('rightSide') > allEnemies[i].sides('leftSide') &&
+			this.sides('topSide') < allEnemies[i].sides('bottomSide') &&
+			this.sides('bottomSide') > allEnemies[i].sides('topSide')) {
             return true;
 		}
 	}
